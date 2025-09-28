@@ -13,9 +13,19 @@ Output: False
 """
 
 def has_duplicates(product_ids):
-    # Your implementation here
+    set(product_ids) 
+    seen = set() 
+    for prod in product_ids:
+        if prod in seen:
+            return True
+        seen.add(prod)
+    return False
     pass
 
+# (1) Why this data structure fits the task  
+# A set is the best option here because all we want to do it check if there are mutiple of the same value, location and referencing does not matter for this
+# (2) what operations are performed and their expected runtime
+# The operations performed are adding to the set and checking if an item is in the set. Both of these operations are O(1) on average.
 
 """
 Problem 2: Order Manager
@@ -30,17 +40,22 @@ task_queue.add_task("Code review")
 task_queue.remove_oldest_task() → "Email follow-up"
 """
 
+from collections import deque
+
 class TaskQueue:
     def __init__(self):
-        # Your initialization here
-        pass
+        self._dq = deque()
 
     def add_task(self, task):
-        pass
+        self._dq.append(task)
 
     def remove_oldest_task(self):
-        pass
+        return self._dq.popleft() if self._dq else None
 
+# (1) Why this data structure fits the task 
+# A deque is the best option here because we need to maintain order and be able to efficiently add to the end and remove from the front
+# (2) what operations are performed and their expected runtime 
+# The operations performed are appending to the end and popping from the front. Both of these operations are O(1).
 
 """
 Problem 3: Unique Value Counter
@@ -57,10 +72,15 @@ tracker.get_unique_count() → 2
 
 class UniqueTracker:
     def __init__(self):
-        pass
+        self.unique = set()
 
     def add(self, value):
-        pass
+        self.unique.add(value)
 
     def get_unique_count(self):
-        pass
+        return len(self.unique)
+
+# (1) Why this data structure fits the task 
+# A set is the best option here because we need to maintain a collection of unique items and sets inherently do not allow duplicates
+# (2) what operations are performed and their expected runtime 
+# The operations performed are adding to the set and getting the length of the set. Adding is O(1) on average and getting the length is O(1).
